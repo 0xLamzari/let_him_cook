@@ -8,7 +8,7 @@ def get_user_by_email(email: str) -> Optional[dtos.UserInDB]:
     return IN_MEMORY_USERS_DB.get(email)
 
 
-def create_user(user: dtos.UserRegistrationRequest) -> dtos.UserInDB:
+def create_user(user: dtos.UserRequest) -> dtos.UserInDB:
     hashed_password = hashing.hash_password(user.password)
 
     user_in_db = dtos.UserInDB(
