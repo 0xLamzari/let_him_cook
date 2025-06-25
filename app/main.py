@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException, status
-from app import dtos, database
+from . import dtos, database
 
 app = FastAPI(title='Let Him Cook')
 

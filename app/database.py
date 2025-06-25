@@ -1,5 +1,5 @@
 from typing import Dict, Optional
-from app import dtos, hashing
+from . import dtos, hashing
 
 # key: email, value: UserInDB
 IN_MEMORY_USERS_DB: Dict[str, dtos.UserInDB] = {}

@@ -45,4 +45,5 @@ http://127.0.0.1:8000/redoc
 
 
 TODO:
-Registration endpoint, hashing of psw (argon2)
+~Registration endpoint, hashing of psw (argon2)
+-tests for registration endpoint
