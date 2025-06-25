@@ -1,9 +1,7 @@
-import uvicorn
-from fastapi import FastAPI, HTTPException, status, Depends
+from app import dtos, database, auth
+from fastapi import FastAPI, HTTPException, status
 from typing import Dict, Any
-from fastapi.security import OAuth2PasswordRequestForm
-
-from app import dtos, database, hashing
+import uvicorn
 
 app = FastAPI(title='Let Him Cook')
 
@@ -27,25 +25,18 @@ def register_user(user: dtos.UserRequest) -> dtos.UserInDB:
     return stored_user
 
 
+# TODO: add documentation for endpoint (parameters, etc.)
 @app.post("/login", response_model=dtos.LoginResponse)
-def login_user(user: dtos.UserRequest) -> dtos.LoginResponse:
-    user = authenticate_user(user.email, user.password)
+def login_user(user: dtos.UserRequest) -> Dict[str, Any]:
+    user = auth.authenticate_user(user.email, user.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password",
         )
 
-    return dtos.LoginResponse(message="Successful login")
-
-
-def authenticate_user(email: str, password: str) -> dtos.UserInDB | None:
-    user = database.get_user_by_email(email)
-    if not user:
-        return None
-    if not hashing.verify_password(password, user.hashed_password):
-        return None
-    return user
+    access_token = auth.create_access_token(data={"sub": user.email})
+    return {"message": "Login successful", "token": dtos.Token(access_token=access_token, token_type="bearer")}
 
 
 if __name__ == '__main__':
