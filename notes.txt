@@ -1,3 +1,15 @@
+DOCS:
+- python quick ref:
+    https://learnxinyminutes.com/python/
+- fastapi:
+    https://fastapi.tiangolo.com/
+- uvicorn asynchronous server gateway interface:
+    https://www.uvicorn.org/
+- pytest
+    https://docs.pytest.org/en/stable/
+
+
+
 COMMANDS:
 - Create the virtual environment
 python -m venv venv
@@ -17,14 +29,20 @@ pip freeze > requirements.txt
 - install dependencies from a dep file
 pip install -r requirements.txt
 
-- run app with uvicorn:
-uvicorn main:app --reload
-
+- run app with uvicorn from root folder:
+uvicorn app.main:app --reload
 
 
 NOTES:
+- why relative imports don't work when the app is run from let_him_cook\ instead of let_him_cook\app\  ?
+- what are __init__ files for?
+
 - swagger ui:
 http://127.0.0.1:8000/docs
 
 - redoc:
 http://127.0.0.1:8000/redoc
+
+
+TODO:
+Registration endpoint, hashing of psw (argon2)
