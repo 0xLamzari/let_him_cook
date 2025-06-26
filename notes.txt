@@ -45,8 +45,9 @@ TODO:
 ~use type | None instead of Optional[type]
 ~use EmailStr as type for dtos to get automatic parsing
 ~add 2 factors auth with OTP
-!- cleanup print statements
+~add docker file
+~cleanup print statements
+~add profile info during registration
 
-- add profile info during registration
-- add docker file
 - add documentation for all endpoints
+- add instructions in readme.md

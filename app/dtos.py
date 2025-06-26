@@ -1,9 +1,14 @@
 from pydantic import BaseModel, EmailStr
 
 
+class Profile(BaseModel):
+    name: str
+    surname: str
+
 class RegistrationRequest(BaseModel):
     email: EmailStr
     password: str
+    profile_data: Profile
     enable_2fa: bool = False
 
 class UserInDB(BaseModel):
