@@ -42,8 +42,8 @@ TODO:
 ~Registration endpoint, hashing of psw (argon2)
 ~tests for registration endpoint
 ~tests for login endpoint
-
-- add 2 factors auth with OTP
-
+~use type | None instead of Optional[type]
+~use EmailStr as type for dtos to get automatic parsing
+~add 2 factors auth with OTP
 
 !- cleanup print statements

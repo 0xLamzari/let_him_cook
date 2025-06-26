@@ -7,8 +7,6 @@ hasher = PasswordHasher()
 
 def hash_password(input_password: str) -> str:
     hashed_password = hasher.hash(input_password)
-    # TODO: to be deleted
-    print(hashed_password)
     return hashed_password
 
 def verify_password(input_password: str, hashed_password: str) -> bool | None:
