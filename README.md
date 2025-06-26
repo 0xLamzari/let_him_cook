@@ -1,5 +1,7 @@
 ![let_him_cook_mascotte](https://github.com/user-attachments/assets/ee802db1-0f28-4b99-911d-e3bc602049d7)
 
+You can see the full assignment instructions in: [instructions.txt](./instructions.txt) 
+
 # **Cooking Forum Authentication Service**
 
 This project is a simple, secure, and containerized backend service for managing user registration and authentication for an online cooking forum. It is built with Python and the FastAPI framework.
