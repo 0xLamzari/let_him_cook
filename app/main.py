@@ -5,14 +5,16 @@ import uvicorn
 
 app = FastAPI(title='Let Him Cook')
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-# TODO: add documentation for endpoint (parameters, etc.)
 @app.post("/register", response_model=dtos.UserInDB, status_code=status.HTTP_201_CREATED)
 def register_user(user: dtos.RegistrationRequest) -> dtos.UserInDB:
+    """
+    Register a new user in the system.
+
+    - **email**: The user's email address. Must be unique
+    - **password**: The user's password. Will be securely hashed
+    - **profile_data**: The user's name and surname
+    - **enable_2fa**: A boolean to enable Two-Factor Authentication
+    """
 
     db_user = database.get_user_by_email(email=user.email)
     if db_user:
@@ -24,9 +26,14 @@ def register_user(user: dtos.RegistrationRequest) -> dtos.UserInDB:
     return database.create_user(user=user)
 
 
-# TODO: add documentation for endpoint (parameters, etc.)
 @app.post("/login", response_model=dtos.LoginResponse)
 def login_user(req: dtos.LoginRequest) -> Dict[str, Any]:
+    """
+    Authenticate a user and return a JWT or a 2FA prompt if necessary
+
+    - **email**: The user's email address
+    - **password**: The user's password
+    """
     user = auth.authenticate_user(req.email, req.password)
     if not user:
         raise HTTPException(
@@ -46,6 +53,12 @@ def login_user(req: dtos.LoginRequest) -> Dict[str, Any]:
 
 @app.post("/2-factor-auth", response_model=dtos.Token)
 def verify_two_factor_auth(req: dtos.OTPRequest) -> Dict[str, Any]:
+    """
+    Verify the One-Time Password (OTP) for a 2FA-enabled login
+
+    - **email**: The user's email
+    - **otp**: The 6-digit code sent to the user's email
+    """
 
     if not auth.verify_otp(email=req.email, input_otp=req.otp):
         raise HTTPException(
