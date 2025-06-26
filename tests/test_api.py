@@ -13,15 +13,20 @@ def test_register_user_success():
     response = test_client.post(
         "/register",
         json={
-            "email": "test@example.com",
+            "email": "salice@piangente.com",
             "password": "strongpassword",
+            "profile_data": {
+                "name": "Ashitaka",
+                "surname": "Mononoke",
+            },
+            "enable_2fa": False,
         },
     )
 
     data = response.json()
 
     assert response.status_code == 201
-    assert data["email"] == "test@example.com"
+    assert data["email"] == "salice@piangente.com"
 
 
 def test_register_user_duplicate_email():
@@ -30,16 +35,26 @@ def test_register_user_duplicate_email():
     test_client.post(
         "/register",
         json={
-            "email": "test@example.com",
+            "email": "salice@piangente.com",
             "password": "strongpassword",
+            "profile_data": {
+                "name": "Satsuki",
+                "surname": "Mei",
+            },
+            "enable_2fa": False,
         },
     )
     # Second registration with the same email should fail
     response = test_client.post(
         "/register",
         json={
-            "email": "test@example.com",
-            "password": "anotherpassword",
+            "email": "salice@piangente.com",
+            "password": "strongpassword",
+            "profile_data": {
+                "name": "Jiro",
+                "surname": "Nahoko",
+            },
+            "enable_2fa": False,
         },
     )
     assert response.status_code == 400
@@ -53,7 +68,7 @@ def test_login_success():
 
     response = test_client.post(
         "/login",
-        json={"email": "test@example.com", "password": "strongpassword"},
+        json={"email": "salice@piangente.com", "password": "strongpassword"},
     )
     data = response.json()
     assert response.status_code == 200
@@ -67,7 +82,7 @@ def test_login_wrong_password():
 
     response = test_client.post(
         "/login",
-        json={"email": "test@example.com", "password": "wrongpassword"},
+        json={"email": "salice@piangente.com", "password": "wrongpassword"},
     )
     assert response.status_code == 401
     assert response.json() == {"detail": "Incorrect email or password"}
@@ -97,6 +112,10 @@ def test_login_2fa_triggers_otp():
         json={
             "email": "2fa-user@example.com",
             "password": "securepassword123",
+            "profile_data": {
+                "name": "Rosso",
+                "surname": "Porco",
+            },
             "enable_2fa": True,
         },
     )
