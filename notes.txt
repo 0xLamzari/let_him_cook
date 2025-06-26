@@ -1,12 +1,8 @@
 DOCS:
-- python quick ref:
-    https://learnxinyminutes.com/python/
-- fastapi:
-    https://fastapi.tiangolo.com/
-- uvicorn asynchronous server gateway interface:
-    https://www.uvicorn.org/
-- pytest
-    https://docs.pytest.org/en/stable/
+- python quick ref: https://learnxinyminutes.com/python/
+- fastapi:          https://fastapi.tiangolo.com/
+- uvicorn ASGI:     https://www.uvicorn.org/
+- pytest:           https://docs.pytest.org/en/stable/
 
 
 
@@ -14,10 +10,10 @@ COMMANDS:
 - Create the virtual environment
 python -m venv venv
 
-- Activate it
+- Activate it (MUST ALWAYS ACTIVATE IT)
 .\venv\Scripts\activate
 
-- On macOS
+- On macOS (for them to test it)
 source venv/bin/activate
 
 - install fastapi
@@ -34,16 +30,20 @@ uvicorn app.main:app --reload
 
 
 NOTES:
+- pytest wasn't working properly since I didn't install it in the venv but I was using the global package (the error about module imports was misguiding)
 - why relative imports don't work when the app is run from let_him_cook\ instead of let_him_cook\app\  ?
 - what are __init__ files for?
 
-- swagger ui:
-http://127.0.0.1:8000/docs
-
-- redoc:
-http://127.0.0.1:8000/redoc
+- swagger ui: http://127.0.0.1:8000/docs
+- redoc:      http://127.0.0.1:8000/redoc
 
 
 TODO:
 ~Registration endpoint, hashing of psw (argon2)
--tests for registration endpoint
+~tests for registration endpoint
+~tests for login endpoint
+
+- add 2 factors auth with OTP
+
+
+!- cleanup print statements

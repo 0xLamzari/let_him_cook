@@ -43,3 +43,30 @@ def test_register_user_duplicate_email():
     )
     assert response.status_code == 400
     assert response.json() == {"detail": "Email already registered"}
+
+
+def test_login_success():
+    clean_in_memory_db()
+    # Register user first
+    test_register_user_success()
+
+    response = test_client.post(
+        "/login",
+        json={"email": "test@example.com", "password": "strongpassword"},
+    )
+    data = response.json()
+    assert response.status_code == 200
+    assert data["message"] == "Login successful"
+    assert "access_token" in data["token"]
+
+
+def test_login_wrong_password():
+    clean_in_memory_db()
+    test_register_user_success()
+
+    response = test_client.post(
+        "/login",
+        json={"email": "test@example.com", "password": "wrongpassword"},
+    )
+    assert response.status_code == 401
+    assert response.json() == {"detail": "Incorrect email or password"}
