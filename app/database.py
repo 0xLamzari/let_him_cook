@@ -6,7 +6,7 @@ from . import dtos, hashing
 IN_MEMORY_USERS_DB: Dict[str, dtos.UserInDB] = {}
 
 # key: email, value: dict[otp, expiration]
-FAKE_OTP_DB: Dict[str, dict] = {}
+IN_MEMORY_OTP_DB: Dict[str, dict] = {}
 
 
 def get_user_by_email(email: str) -> dtos.UserInDB | None:
@@ -28,13 +28,13 @@ def create_user(user: dtos.RegistrationRequest) -> dtos.UserInDB:
 
 def store_otp(email: str, otp: str, expires_delta: timedelta):
     expires_at = datetime.now(timezone.utc) + expires_delta
-    FAKE_OTP_DB[email] = {"otp": otp, "expires_at": expires_at}
+    IN_MEMORY_OTP_DB[email] = {"otp": otp, "expires_at": expires_at}
 
 
 def get_stored_otp(email: str) -> Dict | None:
-    return FAKE_OTP_DB.get(email)
+    return IN_MEMORY_OTP_DB.get(email)
 
 
 def delete_otp(email: str):
-    if email in FAKE_OTP_DB:
-        del FAKE_OTP_DB[email]
+    if email in IN_MEMORY_OTP_DB:
+        del IN_MEMORY_OTP_DB[email]
