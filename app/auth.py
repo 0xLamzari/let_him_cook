@@ -1,6 +1,9 @@
 import os, random
 from datetime import timedelta, datetime, timezone
+
+import pydantic
 from jose import jwt
+from pydantic import EmailStr
 from . import database, hashing, dtos
 
 OTP_EXPIRATION_MINUTES = int(os.getenv("OTP_EXPIRATION_MINUTES", 5))
@@ -19,7 +22,7 @@ def create_access_token(data: dict) -> str:
     return encoded_jwt
 
 
-def authenticate_user(email: str, password: str) -> dtos.UserInDB | None:
+def authenticate_user(email: EmailStr, password: str) -> dtos.UserInDB | None:
     user = database.get_user_by_email(email)
     if not user:
         return None
@@ -28,7 +31,7 @@ def authenticate_user(email: str, password: str) -> dtos.UserInDB | None:
     return user
 
 
-def generate_and_store_otp(email : str) -> str:
+def generate_and_store_otp(email : EmailStr) -> str:
     otp = str(random.randint(100000, 999999))
     expires = timedelta(minutes=OTP_EXPIRATION_MINUTES)
 
@@ -37,7 +40,7 @@ def generate_and_store_otp(email : str) -> str:
     return otp
 
 
-def verify_otp(email: str, input_otp: str) -> bool:
+def verify_otp(email: EmailStr, input_otp: str) -> bool:
     stored_otp_data = database.get_stored_otp(email)
     if not stored_otp_data:
         return False
