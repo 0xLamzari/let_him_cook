@@ -95,3 +95,10 @@ The service will now be accessible from your host machine at `http://localhost:8
 The project uses pytest for automated testing. To run the tests, execute the following command in your terminal from the project's root directory:
 
 `pytest -v`
+
+
+### Flow without 2FA:
+![giphy](https://github.com/user-attachments/assets/f7f38bca-41a7-4c5a-b882-8c57e7f31489)
+
+### Flow with 2FA:
+![giphy](https://github.com/user-attachments/assets/0a63feec-43e8-4e48-8054-bd065056f732)
