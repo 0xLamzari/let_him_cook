@@ -97,6 +97,18 @@ The project uses pytest for automated testing. To run the tests, execute the fol
 `pytest -v`
 
 
+## **How to Run Load Tests**
+
+To run the load test, execute the following command in your terminal from the project's root directory
+(while the application is running on localhost:8000)
+
+`locust -f locustfile.py --headless -u 10 -r 2 -t 30s --host http://localhost:8000`
+
+virtual users: 10
+runs for: 30 seconds
+
+
+
 ### Flow without 2FA:
 ![giphy](https://github.com/user-attachments/assets/f7f38bca-41a7-4c5a-b882-8c57e7f31489)
 
