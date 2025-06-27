@@ -80,7 +80,7 @@ The service is configured to run inside a Docker container
 
 From the root directory of the project, run the following command:
 
-`docker build \-t let-him-cook . `
+`docker build -t let-him-cook . `
 
 ### **2. Run the Docker Container**
 
